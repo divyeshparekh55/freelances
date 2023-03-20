@@ -22,7 +22,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
 </head>
 <body>
   <center>
@@ -33,8 +36,8 @@
   </div>  
       <form method="POST">
 
-      <div class="input-group mb-3">
-            <select name="ctg_nme[]" class="form-select form-select-lg">
+      <div class="input-group mb-3" id="main">
+            <select name="ctg_nme" id="ctg_nme" class="form-select form-select-lg"><option value="0">SELECT</option>
             <?php
               include_once 'config.php';
               $admin_id = $_SESSION['user_id'];
@@ -43,8 +46,9 @@
     
               while($row = mysqli_fetch_assoc($result)){
               $value = $row['ctgy_name'];
+              $id = $row['id'];
               ?>
-              <option value="<?php print_r($value); ?>">
+              <option value="<?php print_r($id); ?>">
           
                 <?php echo $value?>
               </option>
@@ -109,11 +113,13 @@
     </center>
 </body>
 </html>
-<?php
-  if(isset($_POST['register'])){
-    foreach($_POST['ctg_nme'] as $select){
-      echo $select;
-    }
-  }
-?>
+<script type="text/javascript">
 
+                $("#ctg_nme").change(function(){
+                var ctg_nme = this.value;
+                console.log(ctg_nme);
+                $.ajax({url: "./api/get_sub_ctgy.php?ctg_id="+ctg_nme, success: (res) => {
+                  console.log(res);
+                }})
+                })
+    </script>
