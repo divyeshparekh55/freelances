@@ -10,17 +10,17 @@
         header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
 
         
-    }elseif(isset($_GET['ctg_id'])){
+    } else if(isset($_GET['ctg_id'])){
         $sub_id = $_GET['ctg_id'];
         $sql = "SELECT * FROM category WHERE sub_ctgy_type='$sub_id' ";
-        $sub_ctgy=[];
-        array_push($id,$value);
+        $sub_ctgy = [];
         $rel = mysqli_query($conn,$sql);
         while($row = mysqli_fetch_assoc($rel)){
             $id = $row['id'];
-            $value = $row['ctgy_name'];
+            array_push($sub_ctgy,['id'=>$id,'category_name'=>$row['ctgy_name']]);
         }
-        print_r($row);
+        print_r(json_encode($sub_ctgy,true));
+        exit();
     }
 
 ?>

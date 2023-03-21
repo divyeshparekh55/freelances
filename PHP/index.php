@@ -1,7 +1,7 @@
 <?php
-session_start();
 
-if($_SESSION['user_type'] !== 'admin') {
+session_start();
+if($_SESSION && $_SESSION['user_type'] !== 'admin') {
     session_unset();
     header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
 }
