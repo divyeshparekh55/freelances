@@ -8,5 +8,4 @@ global $db;
 $dbConfig = array("host" => 'localhost', "dbname" => 'textile', "username" => 'root', "password" => '');
 $db = new PdoWrapper($dbConfig);
 
-
 ?>
